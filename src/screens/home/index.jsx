@@ -2,13 +2,14 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import FloatActionButton from '../../components/ui/floatActionButton';
+import {ADDTASKS} from '../../utils/routes';
 
 // create a component
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-      <FloatActionButton />
+      <FloatActionButton onPress={() => navigation.navigate(ADDTASKS)} />
     </View>
   );
 };

@@ -1,13 +1,13 @@
 //import liraries
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {Datepicker} from '@ui-kitten/components';
 
 // create a component
-const CustomerDatePicker = () => {
+const CustomerDatePicker = props => {
+  const {onSelectDate} = props;
   return (
-    <View style={styles.container}>
-      <Text>CustomerDatePicker</Text>
-    </View>
+    <Datepicker {...props} onSelect={nextDate => onSelectDate(nextDate)} />
   );
 };
 

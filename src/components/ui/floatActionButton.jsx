@@ -1,13 +1,14 @@
 //import liraries
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Add} from 'iconsax-react-native';
 
 // create a component
-const FloatActionButton = () => {
+const FloatActionButton = props => {
   return (
-    <View style={styles.container}>
-      <Text>FloatActionButton</Text>
-    </View>
+    <TouchableOpacity {...props} style={styles.container}>
+      <Add size={32} color="#fff" />
+    </TouchableOpacity>
   );
 };
 
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#2ccce4',
     width: 70,
     height: 70,
     borderRadius: 1000,

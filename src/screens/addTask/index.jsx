@@ -11,9 +11,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const AddTask = () => {
   const saveTask = async values => {
     try {
-      await AsyncStorage.multiSet([firstPair, secondPair]);
+      await AsyncStorage.setItem(['task', JSON.stringify(values)]);
+      console.log('başarılı');
     } catch (e) {
       //save error
+      console.log(e);
     }
   };
   return (

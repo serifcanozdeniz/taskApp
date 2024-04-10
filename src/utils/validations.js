@@ -1,10 +1,10 @@
-import * as yup from 'yup';
-
-const taskSchema = yup.object().shape({
-    title: yup.string().required('Zorunlu Alan'),
-    description: yup.string().required('Zorunlu Alan'),
-    startDate: yup.string().required('Zorunlu Alan'),
-    endDate: yup.string().required('Zorunlu Alan'),
-
+import * as Yup from 'yup';
+const taskSchema = Yup.object().shape({
+    title: Yup.string().required('Zorunlu Alan'),
+    description: Yup.string().required('Zorunlu Alan'),
+    startDate: Yup.string().required('Zorunlu Alan'),
+    endDate: Yup.string().required('Zorunlu Alan'),
 });
-export { taskSchema };
+
+
+export { taskSchema }

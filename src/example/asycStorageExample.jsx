@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // create a component
-const StorageExample = () => {
+const StoraageExample = () => {
   const [token, settoken] = useState('');
   const setMytoken = async value => {
     try {
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default StorageExample;
+export default StoraageExample;

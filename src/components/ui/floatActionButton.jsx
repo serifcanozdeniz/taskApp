@@ -7,7 +7,7 @@ import {Add} from 'iconsax-react-native';
 const FloatActionButton = props => {
   return (
     <TouchableOpacity {...props} style={styles.container}>
-      <Add size={32} color="#fff" />
+      <Add size="32" color="#ffffff" />
     </TouchableOpacity>
   );
 };

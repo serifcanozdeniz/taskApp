@@ -1,33 +1,33 @@
 //import liraries
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {Formik} from 'formik';
 import {Input, Button, Toggle} from '@ui-kitten/components';
-import * as yup from 'yup';
-
+import * as Yup from 'yup';
 // create a component
 const FormExample = () => {
   const registerSchema = Yup.object().shape({
-    name: yup.string().required('Zorunlu Alan'),
-    surname: yup.string().required('Zorunlu Alan'),
-    email: yup
-      .string()
+    name: Yup.string().required('Zorunlu Alan'),
+    surname: Yup.string().required('Zorunlu Alan'),
+    email: Yup.string()
       .required('Zorunlu Alan')
-      .email('Geçerli email adresi yazınız'),
-    phone: yup
-      .string()
+      .email('Lütfen geçerli bir email adresi giriniz'),
+    phone: Yup.string()
       .required('Zorunlu Alan')
-      .min(11, 'Minimum 11 hane olmalıdır')
-      .max(13, 'Maksimum 13 hane olmalıdır'),
-    password: yup.string().required('Zorunlu Alan'),
-    passwordConfirm: yup
-      .string()
+      .min(11, 'Lütfen minimum 11 hane olarak giriniz.')
+      .max(13, 'Lütfen maximum 13 hane olarak giriniz.'),
+    password: Yup.string()
       .required('Zorunlu Alan')
-      .oneOf([yup.ref('password')], 'Şifeler uyuşmuyor'),
-    agreementConfirm: yup
-      .bool()
+      .matches(
+        /^(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9ğüşıöçĞÜŞİÖÇ!^+%/()=?_*{[}.:,;/#£$-\]]{8,50})$/,
+        'Şartlar sağlanmıyor',
+      ),
+    agreementConfirm: Yup.bool()
       .required('Zorunlu')
-      .oneOf([true], 'Sözleşmeyi onayla'),
+      .oneOf([true], 'Sözleşmeyi onaylamanız gerekiyor'),
+    passwordConfirm: Yup.string()
+      .required('Zorunlu Alan')
+      .oneOf([Yup.ref('password')], 'Şifreler uyuşmuyor'),
   });
   return (
     <View style={styles.container}>
@@ -40,7 +40,7 @@ const FormExample = () => {
           alignItems: 'center',
         }}>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-          KAYIT OL
+          KAYIT OLUŞTUR
         </Text>
       </View>
       <View style={{flex: 1, padding: 10}}>
@@ -49,8 +49,6 @@ const FormExample = () => {
             initialValues={{
               name: '',
               surname: '',
-              birthDate: '',
-              gender: '',
               email: '',
               phone: '',
               password: '',
@@ -59,76 +57,68 @@ const FormExample = () => {
             }}
             validationSchema={registerSchema}
             onSubmit={values => alert(JSON.stringify(values, 0, 2))}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              setFieldValue,
-              errors,
-            }) => (
+            {({handleChange, handleSubmit, values, setFieldValue, errors}) => (
               <View>
                 <Input
-                  caption={errors.name}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.name}
-                  label={'Ad'}
-                  placeholder="Ad"
+                  label={'İsim'}
+                  placeholder="İsim bilgisi girin"
                   onChangeText={handleChange('name')}
-                  status={errors.name ? 'danger' : 'success'}
+                  status={errors.name ? 'danger' : 'basic'}
+                  caption={errors.name}
                 />
                 <Input
-                  caption={errors.surname}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.surname}
-                  label={'Soyad'}
-                  placeholder="Soyad"
+                  label={'Soyisim'}
+                  placeholder="Soyisim bilgisi girin"
                   onChangeText={handleChange('surname')}
-                  status={errors.surname ? 'danger' : 'success'}
+                  status={errors.surname ? 'danger' : 'basic'}
+                  caption={errors.surname}
                 />
                 <Input
-                  caption={errors.email}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.email}
-                  label={'Email'}
-                  placeholder="Email"
+                  label={'E-mail'}
+                  placeholder="E-mail bilgisi girin"
                   onChangeText={handleChange('email')}
-                  status={errors.email ? 'danger' : 'success'}
+                  status={errors.email ? 'danger' : 'basic'}
+                  caption={errors.email}
                 />
                 <Input
-                  caption={errors.phone}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.phone}
                   label={'Telefon'}
-                  placeholder="Telefon"
+                  placeholder="Telefon bilgisi girin"
                   onChangeText={handleChange('phone')}
-                  status={errors.phone ? 'danger' : 'success'}
+                  status={errors.phone ? 'danger' : 'basic'}
+                  caption={errors.phone}
                 />
                 <Input
-                  secureTextEntry
-                  caption={errors.password}
+                  secureTextEntry={false}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.password}
                   label={'Şifre'}
-                  placeholder="Şifre"
+                  placeholder="Şifre bilgisi girin"
+                  status={errors.password ? 'danger' : 'basic'}
                   onChangeText={handleChange('password')}
-                  status={errors.password ? 'danger' : 'success'}
+                  caption={errors.password}
                 />
                 <Input
-                  secureTextEntry
-                  caption={errors.passwordConfirm}
                   size="large"
                   style={{marginVertical: 10}}
                   value={values.passwordConfirm}
-                  label={'Şifre Onay'}
-                  placeholder="Şifre Onay"
+                  label={'Şifre Tekrar'}
+                  placeholder="Şifre Tekrarl bilgisi girin"
                   onChangeText={handleChange('passwordConfirm')}
-                  status={errors.passwordConfirm ? 'danger' : 'success'}
+                  caption={errors.passwordConfirm}
+                  status={errors.passwordConfirm ? 'danger' : 'basic'}
                 />
                 <View>
                   <Toggle
@@ -136,7 +126,8 @@ const FormExample = () => {
                     onChange={value =>
                       setFieldValue('agreementConfirm', value)
                     }>
-                    Sözleşmeyi okudum, onaylıyorum.
+                    Kullanıcı Sözleşmesini ve Gizlilik Sözleşmesini kabul
+                    ediyorum.
                   </Toggle>
                   {errors.agreementConfirm && (
                     <Text style={{color: 'red'}}>
